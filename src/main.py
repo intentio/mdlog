@@ -26,7 +26,7 @@ class Info:
         result += "running_time = " + str(self.running_time) + " (ms)\n"
         result += "gc_time = " + str(self.gc_time) + " (ms)\n"
         result += "avg_cpu_usage = " + str(self.avg_cpu_usage) + "\n"
-        result += "max_memory = " + str(self.max_memory) + " (MB)\n"
+        result += "max_memory = " + str(self.max_memory) + " (MB)"
         return result
 
     def write_json(self, fname):
@@ -52,7 +52,7 @@ def main(string):
     lst = string.split("/")
 
     path = "/".join(lst[:-1])  # path to input directory
-    if len(lst) == 2:
+    if len(lst) > 1:
         path += "/"
     directory = lst[-1]  # input directory
 
@@ -71,7 +71,7 @@ def main(string):
 
     for f in listdir(pd):
         if f == directory + ".js":
-            #print "Result already exists."
+            print "Result already exists."
             return
 
     eventlog_fname = ""
@@ -105,7 +105,7 @@ def main(string):
 
     # Create a json file containing results
     result.write_json(pd + "/" + directory + ".js")
-    #print result
+    print result
 
 
 import sys

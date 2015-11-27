@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Run mdlog on multiple directories.
+
+export MDLOG_HOME="$(cd "`dirname "$0"`"/..; pwd)"
+
+function usage {
+    echo "Usage: run [directory]"
+    echo "  - directory: A directory containing multiple directories."
+    exit
+}
+
+if [ "$#" -ne 1 ]; then
+    usage
+    exit
+else
+    root_dir=${1%*/}
+    for dir in $root_dir/*
+    do
+        echo $dir
+        $MDLOG_HOME/bin/mdlog $dir
+        echo ""
+    done
+fi
