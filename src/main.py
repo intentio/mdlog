@@ -96,12 +96,15 @@ def main(string):
     for fname in btracelog_fnames:
         btracelogs.append(BtraceLog(fname))
 
-    # Max peak memory among all executors
-    result.max_memory = max([btracelog.max_memory for btracelog in btracelogs])
+    if len(btracelogs) > 0:
+        # Max peak memory among all executors
+        result.max_memory = max([btracelog.max_memory for btracelog in btracelogs])
 
-    # Avg CPU usage among all executors
-    cpu = [btracelog.avg_cpu_load for btracelog in btracelogs]
-    result.avg_cpu_usage = sum(cpu) / len(cpu)
+        # Avg CPU usage among all executors
+        cpu = [btracelog.avg_cpu_load for btracelog in btracelogs]
+        result.avg_cpu_usage = sum(cpu) / len(cpu)
+    elif len(btracelogs) == 0:
+        print "No BTrace logs exist."
 
     # Create a json file containing results
     result.write_json(pd + "/" + directory + ".js")
