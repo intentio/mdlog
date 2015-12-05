@@ -1,5 +1,6 @@
 from os import listdir
 from os.path import isfile, isdir, join
+import sys
 import json
 
 from eventlog import *
@@ -29,7 +30,7 @@ class Info:
         result += "max_memory = " + str(self.max_memory) + " (MB)"
         return result
 
-    def write_json(self, fname):
+    def create_summary_log(self, fname):
         data = {}
         data["app_id"] = self.app_id
         data["conf_id"] = self.conf_id
@@ -107,10 +108,9 @@ def main(string):
         print "No BTrace logs exist."
 
     # Create a json file containing results
-    result.write_json(pd + "/" + directory + ".js")
+    result.create_summary_log(pd + "/" + directory + ".js")
     print result
 
 
-import sys
 if __name__ == "__main__":
     main(sys.argv[1])
